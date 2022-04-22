@@ -42,6 +42,7 @@ void tulis(){
         fprintf(tulis, "%d", data[i].qty);
         fprintf(tulis, "===");
     }
+    fclose(tulis);
 }
 void tambah(int n){
     int t = curr;
@@ -69,9 +70,12 @@ void transaksi(int a, int b){
     if(data[a-1].qty == 0){
         printf("Maaf, barang sudah habis....");
     }
-    else{
+    else if(a <= curr+1){
         printf("%s sebanyak %d berhasil dibeli!", data[a-1].nama, b);
         data[a-1].qty -= b;
+    }
+    else if(a > curr+1){
+        printf("Data tidak ada!");
     }
 }
 int main(){
