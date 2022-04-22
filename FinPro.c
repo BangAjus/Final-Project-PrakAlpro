@@ -66,12 +66,12 @@ void cetak(){
     }
 }
 void transaksi(int a, int b){
-    if(data[a].qty == 0){
+    if(data[a-1].qty == 0){
         printf("Maaf, barang sudah habis....");
     }
     else{
-        printf("%s sebanyak %d berhasil dibeli!", data[a].nama, b);
-        data[a].qty -= b;
+        printf("%s sebanyak %d berhasil dibeli!", data[a-1].nama, b);
+        data[a-1].qty -= b;
     }
 }
 int main(){
