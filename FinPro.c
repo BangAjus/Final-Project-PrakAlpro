@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 struct data{
-    char *nama, *harga;
+    char nama[100], harga[100];
     int qty;
 }data[50];
 
@@ -14,19 +14,18 @@ void baca(){
         printf("File ada!");
         while(!feof(baca)){
             if(ulg == 1){
-                fscanf(baca, "%s", &data[curr].nama);
+                fscanf(baca, "%s", &data[curr].nama); ulg++;
             }
             if(ulg == 2){
-                fscanf(baca, "%s", &data[curr].harga);
+                fscanf(baca, "%s", &data[curr].harga); ulg++;
             }
-            if(ulg == 3){
-                fscanf(baca, "%d", &data[curr].qty);
+            if(ulg == 3){ 
+                fscanf(baca, "%d", &data[curr].qty); ulg++;
             }
             if(ulg == 4){
-                ulg = 0;
+                ulg = 1;
                 curr++;
             }
-            ulg++;
         }
     }
     else{
@@ -36,22 +35,21 @@ void baca(){
 }
 void tulis(){
     FILE *tulis = fopen("dagang.txt", "w");
-    for(int i = 0; i < curr+1; i++){
-        fprintf(tulis, "%s", data[i].nama);
-        fprintf(tulis, "%s", data[i].harga);
-        fprintf(tulis, "%d", data[i].qty);
-        fprintf(tulis, "===");
+    for(int i = 0; i < curr; i++){
+        fprintf(tulis, "%s\n", data[i].nama);
+        fprintf(tulis, "%s\n", data[i].harga);
+        fprintf(tulis, "%d\n", data[i].qty);
     }
     fclose(tulis);
 }
 void tambah(int n){
     int t = curr;
     printf("Data yang ditambahkan : %d\n", n);
-    for(int i = t+1; i < t+1+n; i++){
+    for(int i = t; i < t+n; i++){
         printf("Masukkan nama barang : ");
-        gets(data[i].nama);
+        scanf("%s", &data[i].nama);
         printf("Masukkan harga barang : ");
-        gets(data[i].harga);
+        scanf("%s", &data[i].harga);
         printf("Masukkan kuantitas : ");
         scanf("%d", &data[i].qty);
         curr++;
@@ -60,9 +58,9 @@ void tambah(int n){
 }
 void cetak(){
     printf("Mencetak data : \n");
-    for(int i = 0; i < curr+1; i++){
-        puts(data[i].nama); printf("\n");
-        puts(data[i].harga); printf("\n");
+    for(int i = 0; i < curr; i++){
+        printf("%s\n", data[i].nama);
+        printf("%s\n", data[i].harga);
         printf("%d\n", data[i].qty);
     }
 }
@@ -79,5 +77,9 @@ void transaksi(int a, int b){
     }
 }
 int main(){
+    baca();
+    cetak();
+    tambah(1);
+    cetak();
     return 0;
 }
